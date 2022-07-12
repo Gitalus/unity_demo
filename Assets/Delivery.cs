@@ -5,6 +5,7 @@ using UnityEngine;
 public class Delivery : MonoBehaviour
 {
   bool hasPackage;
+  [SerializeField] float destroyDelay = 0.5f;
   // Receive the information of the colliding object
   void OnCollisionEnter2D(Collision2D other)
   {
@@ -13,10 +14,11 @@ public class Delivery : MonoBehaviour
 
   void OnTriggerEnter2D(Collider2D other)
   {
-    if (other.tag == "Package")
+    if (other.tag == "Package" && !hasPackage)
     {
       hasPackage = true;
-      Debug.Log("This is triggered");
+      Debug.Log("Packag Picked");
+      Destroy(other.gameObject, destroyDelay);
     }
     if (other.tag == "Customer" && hasPackage)
     {
